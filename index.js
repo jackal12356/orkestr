@@ -923,8 +923,8 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 根路由: /
-  if (urlPath === '/') {
+  // 根路由: / 以及其他所有路径都返回首页（兜底，避免 404）
+  if (req.method === 'GET' || req.method === 'HEAD') {
     try {
       const filePath = path.join(__dirname, 'index.html');
       const data = await fs.promises.readFile(filePath, 'utf8');
